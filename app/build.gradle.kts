@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+//    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 
@@ -67,7 +68,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.room:room-ktx:2.4.2")
     implementation("androidx.room:room-runtime:2.4.2")
-    kapt("androidx.room:room-compiler:2.4.2")
+    ksp("androidx.room:room-compiler:2.4.2")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")

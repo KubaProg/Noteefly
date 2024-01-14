@@ -9,11 +9,12 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteefly2.Models.Note
 import com.example.noteefly2.R
+import kotlin.random.Random
 
-class NotesAdapter(private val context : Context) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
+class NotesAdapter(private val context : Context, val listener : NotesClickListener) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
-    private val NotesList: ArrayList<Note>()
-    private val fullList : ArrayList<Note>()
+    private val NotesList =  ArrayList<Note>()
+    private val fullList = ArrayList<Note>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
        return NoteViewHolder(
@@ -25,6 +26,46 @@ class NotesAdapter(private val context : Context) : RecyclerView.Adapter<NotesAd
         return NotesList.size;
     }
 
+    fun updateList(newList: List<Note>){
+        fullList.clear();
+        fullList.addAll(newList)
+
+        NotesList.clear();
+        NotesList.addAll(fullList)
+
+        notifyDataSetChanged();
+    }
+
+    fun filterList(search: String){
+        NotesList.clear();
+
+        for(item in fullList){
+            if(item.title?.lowercase()?.contains(search.lowercase()) == true ||
+                item.note?.lowercase()?.contains(search.lowercase()) == true) {
+                NotesList.add(item)
+            }
+        }
+
+        notifyDataSetChanged();
+    }
+
+    fun RandomColor() : Int
+    {
+
+        var list = ArrayList<Int>();
+        list.add(R.color.magenta)
+        list.add(R.color.cyan)
+        list.add(R.color.green)
+        list.add(R.color.gray)
+        list.add(R.color.red)
+
+        val seed = System.currentTimeMillis().toInt();
+        val randomIndex = Random(seed).nextInt(list.size)
+        return list[randomIndex];
+
+
+    }
+
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val currentNote = NotesList[position]
         holder.title.text = currentNote.title
@@ -33,7 +74,18 @@ class NotesAdapter(private val context : Context) : RecyclerView.Adapter<NotesAd
         holder.Note_tv.text = currentNote.note
 
         holder.date.text = currentNote.date
-        holder.date.isSelected = true
+
+        holder.notes_layout.setBackgroundColor(holder.itemView.resources.getColor(RandomColor()))
+
+        holder.notes_layout.setOnClickListener{
+            listener.onitemClicked(NotesList[holder.adapterPosition])
+        }
+
+        holder.notes_layout.setOnClickListener {
+            listener.onLongitemClicked(NotesList[holder.adapterPosition],holder.notes_layout)
+            true
+        }
+
     }
 
     inner class NoteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -41,6 +93,11 @@ class NotesAdapter(private val context : Context) : RecyclerView.Adapter<NotesAd
         val title = itemView.findViewById<TextView>(R.id.tv_title)
         val Note_tv = itemView.findViewById<TextView>(R.id.tv_note)
         val date = itemView.findViewById<TextView>(R.id.tv_date)
+    }
+
+    interface NotesClickListener{
+        fun onitemClicked(note:Note)
+        fun onLongitemClicked(note:Note,cardView: CardView)
     }
 
 }
