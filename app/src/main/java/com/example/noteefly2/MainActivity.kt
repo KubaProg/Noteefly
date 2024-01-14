@@ -101,8 +101,8 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
 
     override fun onitemClicked(note: Note) {
         val intent = Intent(this@MainActivity,AddNote::class.java);
-//        intent.putExtra("current_note",note)
-//        updateNote.launch(intent)
+        intent.putExtra("current_note",note)
+        updateNote.launch(intent)
     }
 
     override fun onLongitemClicked(note: Note, cardView: CardView) {
