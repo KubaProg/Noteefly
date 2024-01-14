@@ -118,10 +118,18 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
-        if(item?.itemId == R.id.delete_note){
-            viewModel.deleteNote(selectedNote)
-            return true
+        when (item?.itemId) {
+            R.id.update_note -> {
+                val intent = Intent(this@MainActivity, AddNote::class.java)
+                intent.putExtra("current_note", selectedNote)
+                updateNote.launch(intent)
+                return true
+            }
+            R.id.delete_note -> {
+                viewModel.deleteNote(selectedNote)
+                return true
+            }
         }
-        return false;
+        return false
     }
 }

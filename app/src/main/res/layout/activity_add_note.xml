@@ -71,7 +71,7 @@
         android:ems="10"
         android:gravity="top"
         android:hint="Pisz..."
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:lineSpacingMultiplier="1.8"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
