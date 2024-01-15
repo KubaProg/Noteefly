@@ -11,93 +11,90 @@ import com.example.noteefly2.Models.Note
 import com.example.noteefly2.R
 import kotlin.random.Random
 
-class NotesAdapter(private val context : Context, val listener : NotesClickListener) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
+class NotesAdapter(private val context: Context, val listener: NotesClickListener) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
-    private val NotesList =  ArrayList<Note>()
+    private val NotesList = ArrayList<Note>()
     private val fullList = ArrayList<Note>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-       return NoteViewHolder(
-           LayoutInflater.from(context).inflate(R.layout.list_item,parent,false)
-       )
+        return NoteViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
-        return NotesList.size;
+        return NotesList.size
     }
 
-    fun updateList(newList: List<Note>){
-        fullList.clear();
+    fun updateList(newList: List<Note>) {
+        fullList.clear()
         fullList.addAll(newList)
 
-        NotesList.clear();
+        NotesList.clear()
         NotesList.addAll(fullList)
 
-        notifyDataSetChanged();
+        notifyDataSetChanged()
     }
 
-    fun filterList(search: String){
-        NotesList.clear();
+    fun filterList(search: String) {
+        NotesList.clear()
 
         for(item in fullList){
-            if(item.title?.lowercase()?.contains(search.lowercase()) == true ||
-                item.note?.lowercase()?.contains(search.lowercase()) == true) {
+            if(item.category?.lowercase()?.contains(search.lowercase()) == true)
+                {
                 NotesList.add(item)
             }
         }
 
-        notifyDataSetChanged();
+
+        notifyDataSetChanged()
     }
 
-    fun RandomColor() : Int
-    {
-
-        var list = ArrayList<Int>();
+    fun RandomColor(): Int {
+        var list = ArrayList<Int>()
         list.add(R.color.magenta)
         list.add(R.color.cyan)
         list.add(R.color.green)
         list.add(R.color.gray)
         list.add(R.color.red)
 
-        val seed = System.currentTimeMillis().toInt();
+        val seed = System.currentTimeMillis().toInt()
         val randomIndex = Random(seed).nextInt(list.size)
-        return list[randomIndex];
-
-
+        return list[randomIndex]
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val currentNote = NotesList[position]
         holder.title.text = currentNote.title
         holder.title.isSelected = true
-
-        holder.Note_tv.text = currentNote.note
-
+        holder.note.text = currentNote.note
         holder.date.text = currentNote.date
+        holder.category.text = currentNote.category
+        holder.importanceLevel.text = currentNote.importanceLevel
 
-        holder.notes_layout.setBackgroundColor(holder.itemView.resources.getColor(RandomColor()))
+        holder.notesLayout.setBackgroundColor(holder.itemView.resources.getColor(RandomColor()))
 
-        holder.notes_layout.setOnClickListener{
+        holder.notesLayout.setOnClickListener {
             listener.onitemClicked(NotesList[holder.adapterPosition])
         }
 
-        holder.notes_layout.setOnClickListener {
-            listener.onLongitemClicked(NotesList[holder.adapterPosition],holder.notes_layout)
+        holder.notesLayout.setOnLongClickListener {
+            listener.onLongitemClicked(NotesList[holder.adapterPosition], holder.notesLayout)
             true
         }
-
     }
 
-    inner class NoteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val notes_layout = itemView.findViewById<CardView>(R.id.card_layout)
-        val title = itemView.findViewById<TextView>(R.id.tv_title)
-        val Note_tv = itemView.findViewById<TextView>(R.id.tv_note)
-        val date = itemView.findViewById<TextView>(R.id.tv_date)
+    inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val notesLayout: CardView = itemView.findViewById(R.id.card_layout)
+        val title: TextView = itemView.findViewById(R.id.tv_title)
+        val note: TextView = itemView.findViewById(R.id.tv_note)
+        val date: TextView = itemView.findViewById(R.id.tv_date)
+        val category: TextView = itemView.findViewById(R.id.tv_category)
+        val importanceLevel: TextView = itemView.findViewById(R.id.tv_importance_level)
     }
 
-    interface NotesClickListener{
-        fun onitemClicked(note:Note)
-        fun onLongitemClicked(note:Note,cardView: CardView)
+    interface NotesClickListener {
+        fun onitemClicked(note: Note)
+        fun onLongitemClicked(note: Note, cardView: CardView)
     }
-
 }

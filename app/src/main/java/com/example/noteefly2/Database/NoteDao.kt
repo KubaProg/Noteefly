@@ -18,8 +18,9 @@ interface NoteDao {
     @Delete
     suspend fun delete(note: Note)
 
-    @Query("UPDATE notes_table SET title=:title, note =:note WHERE id =:id")
-    suspend fun upgrade(id : Int?, title: String?, note : String?)
+    @Query("UPDATE notes_table SET title=:title, note =:note, category =:category, importanceLevel =:importanceLevel WHERE id =:id")
+    suspend fun upgrade(id : Int?, title: String?, note : String?,
+                        category : String?, importanceLevel : String?)
 
     @Query("SELECT * FROM notes_table ORDER BY id ASC")
     fun getAllNotes(): LiveData<List<Note>>

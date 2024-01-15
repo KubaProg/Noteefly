@@ -4,47 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
+    android:layout_margin="20dp"
     android:background="@color/white"
     app:cardCornerRadius="8dp"
-    android:elevation="8dp"
-    >
-    
+    android:elevation="8dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        
-        <RelativeLayout
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="Tytuł"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="Tytuł"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:padding="8dp"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kategoria"
+            android:textColor="@color/black"
+            android:textSize="14sp"/>
 
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_importance_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Poziom Ważności"
+            android:textColor="@color/black"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:text="Notatka"
             android:maxLines="10"
-            android:padding="8dp"
-            android:textStyle="normal"
             android:textColor="@color/black"
             android:textSize="14sp"/>
 
@@ -52,20 +53,12 @@
             android:id="@+id/tv_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:text="Data"
             android:textColor="@color/gray"
             android:textSize="14sp"
-            android:scrollHorizontally="true"
-            android:textStyle="normal"
             android:singleLine="true"
-            android:maxLines="10"
-            android:padding="8dp"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"/>
-
-
+            android:ellipsize="end"/>
 
     </LinearLayout>
-    
+
 </androidx.cardview.widget.CardView>
