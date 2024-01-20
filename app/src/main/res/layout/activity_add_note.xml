@@ -102,12 +102,21 @@
         app:layout_constraintStart_toEndOf="@+id/tv_importance_label"
         app:layout_constraintTop_toBottomOf="@+id/et_category" />
 
+    <TimePicker
+        android:id="@+id/time_picker"
+        android:timePickerMode="spinner"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_importance_level"
+        app:layout_constraintBottom_toTopOf="@+id/et_note"
+        />
     <!-- Note EditText -->
     <EditText
         android:id="@+id/et_note"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:background="@null"
         android:ems="10"
         android:gravity="top"
@@ -118,7 +127,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_importance_level" />
+        app:layout_constraintTop_toBottomOf="@+id/time_picker" />
 
 
 

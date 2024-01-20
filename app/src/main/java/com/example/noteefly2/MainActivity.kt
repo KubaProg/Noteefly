@@ -1,6 +1,8 @@
 package com.example.noteefly2
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        createNotificationChannel()
         // Initializing the UI
         initUI();
 
@@ -58,7 +61,16 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
         }
 
         database = NoteDatabase.getDatabase(this)
+    }
 
+    private fun createNotificationChannel() {
+        val name = "Notif Channel"
+        val desc = "channel description"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(channelID, name, importance)
+        channel.description = desc
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
     private fun initUI(){
