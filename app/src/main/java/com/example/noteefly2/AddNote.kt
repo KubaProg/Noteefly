@@ -12,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,8 +31,10 @@ class AddNote : AppCompatActivity() {
     private lateinit var timePicker: TimePicker
     private lateinit var importancePicker: Spinner
     private lateinit var checkBox: CheckBox
+    private lateinit var timeText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         binding = ActivityAddNoteBinding.inflate(layoutInflater)
@@ -45,6 +48,7 @@ class AddNote : AppCompatActivity() {
         timePicker = findViewById(R.id.time_picker)
         importancePicker = findViewById(R.id.spinner_importance_level)
         timePicker.setIs24HourView(true)
+        timeText = findViewById(R.id.tv_set_notification_time)
 
         importancePicker.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -54,8 +58,10 @@ class AddNote : AppCompatActivity() {
                 id: Long
             ) {
                 if (position > 3) {
+                    timeText.visibility = View.VISIBLE
                     timePicker.visibility = View.VISIBLE
                 } else {
+                    timeText.visibility = View.GONE
                     timePicker.visibility = View.GONE
                 }
             }
